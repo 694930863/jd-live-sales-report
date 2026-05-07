@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>京东直播销售日报 | 2026-05-06</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e0ec;
+      --panel: #ffffff;
+      --red: #d9232e;
+      --red-soft: #fff1f2;
+      --blue: #2563eb;
+      --green: #15803d;
+      --amber: #b45309;
+      --cyan: #0891b2;
+      --shadow: 0 14px 40px rgba(18, 25, 38, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .shell {
+      width: min(1280px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(217, 35, 46, .96), rgba(124, 45, 18, .92)),
+        url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      min-height: 312px;
+      padding: 36px;
+      border-radius: 8px;
+      display: grid;
+      align-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.02;
+      font-weight: 760;
+    }
+
+    .hero-note {
+      max-width: 900px;
+      margin: 24px 0 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .92);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      color: #fff;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin: 0 0 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi {
+      min-height: 132px;
+      padding: 18px;
+      display: grid;
+      align-content: space-between;
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .kpi .value {
+      margin-top: 10px;
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 760;
+      color: var(--ink);
+    }
+
+    .delta {
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .layout-2 {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .bars {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px;
+      height: 290px;
+      align-items: end;
+      padding: 14px 6px 0;
+      border-top: 1px solid var(--line);
+      margin-top: 16px;
+    }
+
+    .bar-col {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      height: 100%;
+      min-width: 0;
+      gap: 8px;
+    }
+
+    .bar-wrap {
+      display: flex;
+      align-items: end;
+      min-height: 0;
+      border-radius: 6px;
+      background: #eef2f7;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 100%;
+      min-height: 2px;
+      background: linear-gradient(180deg, #ef4444, #d9232e);
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      padding-top: 7px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .bar.zero {
+      background: #cbd5e1;
+      color: #475569;
+    }
+
+    .bar-label {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .insights {
+      display: grid;
+      gap: 12px;
+    }
+
+    .insight {
+      padding: 14px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+    }
+
+    .insight b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .insight p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      background: #f8fafc;
+    }
+
+    td {
+      line-height: 1.45;
+    }
+
+    .rank {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 760;
+      font-size: 13px;
+    }
+
+    .money {
+      font-weight: 760;
+      color: var(--red);
+    }
+
+    .sub {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .source-row {
+      display: grid;
+      grid-template-columns: 112px 1fr 82px;
+      gap: 10px;
+      align-items: center;
+      margin: 13px 0;
+      font-size: 14px;
+    }
+
+    .track {
+      height: 12px;
+      background: #edf2f7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .source-row:nth-child(3n) .fill { background: var(--green); }
+    .source-row:nth-child(3n + 1) .fill { background: var(--cyan); }
+    .source-row:nth-child(3n + 2) .fill { background: var(--amber); }
+
+    .donut-wrap {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .donut {
+      width: 170px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: conic-gradient(var(--red) 0 94.84%, #334155 94.84% 100%);
+      display: grid;
+      place-items: center;
+    }
+
+    .donut::after {
+      content: "";
+      width: 104px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .legend {
+      display: grid;
+      gap: 12px;
+    }
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .dot.dark { background: #334155; }
+
+    .recommendations {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rec {
+      padding: 16px;
+    }
+
+    .rec b {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 15px;
+    }
+
+    .rec p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .kpi-grid,
+      .layout-2,
+      .split,
+      .recommendations {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .layout-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 24px, 1280px);
+        padding-top: 12px;
+      }
+
+      .hero {
+        min-height: 360px;
+        padding: 24px;
+      }
+
+      .hero-note {
+        font-size: 16px;
+      }
+
+      .kpi-grid,
+      .split,
+      .recommendations {
+        grid-template-columns: 1fr;
+      }
+
+      .bars {
+        gap: 7px;
+        height: 240px;
+      }
+
+      .bar {
+        font-size: 10px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+
+      table {
+        min-width: 760px;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+      }
+
+      .donut-wrap {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">京东直播后台 / 交易分析 + 场次分析</p>
+        <h1>京东直播销售日报</h1>
+        <p class="hero-note">
+          昨日直播成交明显反弹，成交金额 37.70 万元，较 5 月 5 日提升约 50.3%。成交人数、子单量、商品件数同步回升，说明 5 月 6 日不是单纯高客单拉动，而是整体成交覆盖有所恢复。
+        </p>
+      </div>
+      <div class="hero-meta">
+        <span class="pill">统计日期：2026-05-06</span>
+        <span class="pill">有效周期：2026-05-01 至 2026-05-06</span>
+        <span class="pill">当前抓取：37 页 / 366 条记录</span>
+        <span class="pill">05-07 当前成交：0</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>昨日核心销售数据</h2>
+        <span class="hint">对比口径：2026-05-05</span>
+      </div>
+      <div class="kpi-grid">
+        <article class="card kpi">
+          <div>
+            <div class="label">成交金额</div>
+            <div class="value">￥37.70万</div>
+          </div>
+          <div class="delta">环比 +50.3%</div>
+        </article>
+        <article class="card kpi">
+          <div>
+            <div class="label">成交人数</div>
+            <div class="value">109</div>
+          </div>
+          <div class="delta">环比 +31.3%</div>
+        </article>
+        <article class="card kpi">
+          <div>
+            <div class="label">成交商品件数</div>
+            <div class="value">166</div>
+          </div>
+          <div class="delta">环比 +24.8%</div>
+        </article>
+        <article class="card kpi">
+          <div>
+            <div class="label">成交子单量</div>
+            <div class="value">121</div>
+          </div>
+          <div class="delta">环比 +36.0%</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section layout-2">
+      <article class="card panel">
+        <div class="section-head">
+          <h2>近 7 日成交趋势</h2>
+          <span class="hint">单位：万元</span>
+        </div>
+        <div class="bars" aria-label="近 7 日成交金额柱状图">
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:77.2%">39.05</div></div>
+            <div class="bar-label">05-01<br>108人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:100%">50.57</div></div>
+            <div class="bar-label">05-02<br>131人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:76.9%">38.87</div></div>
+            <div class="bar-label">05-03<br>102人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:62.2%">31.47</div></div>
+            <div class="bar-label">05-04<br>90人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:49.6%">25.08</div></div>
+            <div class="bar-label">05-05<br>83人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:74.6%">37.70</div></div>
+            <div class="bar-label">05-06<br>109人</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar zero" style="height:2%">0</div></div>
+            <div class="bar-label">05-07<br>0人</div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="card panel">
+        <div class="section-head">
+          <h2>阶段累计参考</h2>
+        </div>
+        <div class="insights">
+          <div class="insight">
+            <b>05-01 至 05-06 合计</b>
+            <p>成交金额 222.73 万，成交人数 623，成交商品件数 1064，成交子单量 682。</p>
+          </div>
+          <div class="insight">
+            <b>后台汇总口径</b>
+            <p>成交金额 222.8 万，成交人数 633，成交商品件数 1068，父单量 645，子单量 693。</p>
+          </div>
+          <div class="insight">
+            <b>15 日参考</b>
+            <p>15 日成交金额 318.4 万，本周有效成交贡献约 70%。</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>场次表现 Top 5</h2>
+        <span class="hint">按成交金额排序</span>
+      </div>
+      <div class="card table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:64px;">排名</th>
+              <th>直播间标题</th>
+              <th style="width:130px;">直播间 ID</th>
+              <th style="width:178px;">开播时间</th>
+              <th style="width:132px;">成交金额</th>
+              <th style="width:100px;">人数</th>
+              <th style="width:100px;">件数</th>
+              <th style="width:100px;">子单</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="rank">1</span></td>
+              <td>五一狂欢购，直播享抽奖</td>
+              <td>45661354</td>
+              <td>2026-05-02 08:02:34</td>
+              <td class="money">480,916.5</td>
+              <td>124</td>
+              <td>236</td>
+              <td>139</td>
+            </tr>
+            <tr>
+              <td><span class="rank">2</span></td>
+              <td>五一狂欢购，直播享抽奖</td>
+              <td>45661371</td>
+              <td>2026-05-03 08:00:57</td>
+              <td class="money">378,891.9</td>
+              <td>97</td>
+              <td>172</td>
+              <td>108</td>
+            </tr>
+            <tr>
+              <td><span class="rank">3</span></td>
+              <td>五月狂欢购，直播惊喜抽不停</td>
+              <td>45661502</td>
+              <td>2026-05-06 08:04:57</td>
+              <td class="money">360,706.2</td>
+              <td>106</td>
+              <td>161</td>
+              <td>118</td>
+            </tr>
+            <tr>
+              <td><span class="rank">4</span></td>
+              <td>五一狂欢购，直播享抽奖</td>
+              <td>45300697</td>
+              <td>2026-05-01 08:03:22</td>
+              <td class="money">353,091.3</td>
+              <td>102</td>
+              <td>172</td>
+              <td>110</td>
+            </tr>
+            <tr>
+              <td><span class="rank">5</span></td>
+              <td>五一狂欢购，直播享抽奖</td>
+              <td>45661417</td>
+              <td>2026-05-04 08:19:10</td>
+              <td class="money">281,004.7</td>
+              <td>83</td>
+              <td>134</td>
+              <td>88</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>商品销售 Top 5</h2>
+        <span class="hint">按成交金额排序</span>
+      </div>
+      <div class="card table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:64px;">排名</th>
+              <th>商品</th>
+              <th style="width:150px;">SKU</th>
+              <th style="width:132px;">成交金额</th>
+              <th style="width:100px;">成交人数</th>
+              <th style="width:116px;">商卡点击率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="rank">1</span></td>
+              <td>科大讯飞AI学习机P30 Turbo</td>
+              <td>100267714698</td>
+              <td class="money">274,565.7</td>
+              <td>98</td>
+              <td>23.1%</td>
+            </tr>
+            <tr>
+              <td><span class="rank">2</span></td>
+              <td>科大讯飞AI学习机S30 Turbo 8+256G</td>
+              <td>100251473678</td>
+              <td class="money">271,215.3</td>
+              <td>60</td>
+              <td>18.5%</td>
+            </tr>
+            <tr>
+              <td><span class="rank">3</span></td>
+              <td>科大讯飞旗舰AI学习机T90 Lite</td>
+              <td>100244024161</td>
+              <td class="money">260,035.2</td>
+              <td>32</td>
+              <td>12.9%</td>
+            </tr>
+            <tr>
+              <td><span class="rank">4</span></td>
+              <td>科大讯飞AI学习机S90 Pro</td>
+              <td>100335917036</td>
+              <td class="money">208,775.2</td>
+              <td>35</td>
+              <td>15.3%</td>
+            </tr>
+            <tr>
+              <td><span class="rank">5</span></td>
+              <td>科大讯飞AI学习机T30 Lite</td>
+              <td>100137028206</td>
+              <td class="money">167,591.1</td>
+              <td>24</td>
+              <td>23.9%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section split">
+      <article class="card panel">
+        <div class="section-head">
+          <h2>成交来源结构</h2>
+          <span class="hint">单位：万元</span>
+        </div>
+        <div class="source-row">
+          <span>商品详情页</span>
+          <span class="track"><span class="fill" style="display:block;width:100%"></span></span>
+          <b>165.3</b>
+        </div>
+        <div class="source-row">
+          <span>店铺</span>
+          <span class="track"><span class="fill" style="display:block;width:18.6%"></span></span>
+          <b>30.8</b>
+        </div>
+        <div class="source-row">
+          <span>搜索</span>
+          <span class="track"><span class="fill" style="display:block;width:13.3%"></span></span>
+          <b>22.0</b>
+        </div>
+        <div class="source-row">
+          <span>直播间滑动</span>
+          <span class="track"><span class="fill" style="display:block;width:5.9%"></span></span>
+          <b>9.8</b>
+        </div>
+        <div class="source-row">
+          <span>回放/切片</span>
+          <span class="track"><span class="fill" style="display:block;width:3.2%"></span></span>
+          <b>5.3</b>
+        </div>
+        <div class="source-row">
+          <span>其他</span>
+          <span class="track"><span class="fill" style="display:block;width:3.1%"></span></span>
+          <b>5.1</b>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <div class="section-head">
+          <h2>用户结构</h2>
+          <span class="hint">按成交金额占比</span>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut" aria-label="新老客成交占比图"></div>
+          <div class="legend">
+            <div class="legend-item">
+              <span class="dot"></span>
+              <span>新客成交</span>
+              <b>211.3万 / 94.84%</b>
+            </div>
+            <div class="legend-item">
+              <span class="dot dark"></span>
+              <span>老客成交</span>
+              <b>11.5万 / 5.16%</b>
+            </div>
+            <div class="insight">
+              <b>判断</b>
+              <p>当前成交明显依赖新客，直播拉新能力较强；老客复购、升级款推荐和关联加购仍有明显补强空间。</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section layout-2">
+      <article class="card panel">
+        <div class="section-head">
+          <h2>单场代表性表现</h2>
+          <span class="hint">2026-05-06</span>
+        </div>
+        <div class="insights">
+          <div class="insight">
+            <b>五月狂欢购，直播惊喜抽不停</b>
+            <p>直播间 ID：45661502。成交金额 360,706.2，成交人数 106，成交商品件数 161，成交子单量 118。</p>
+          </div>
+          <div class="insight">
+            <b>互动与承接</b>
+            <p>商卡点击率 3.2%，进商人数 1,106，进商次数 4,887，加购人数 128，加购次数 200。</p>
+          </div>
+          <div class="insight">
+            <b>说明</b>
+            <p>这场是 5 月 6 日恢复的核心场次，成交金额接近 36.1 万，带动当天从 5 月 5 日低点明显反弹。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card panel">
+        <div class="section-head">
+          <h2>今天最值得关注的问题</h2>
+        </div>
+        <div class="insights">
+          <div class="insight">
+            <b>反弹明显，但未回到峰值</b>
+            <p>5 月 6 日成交 37.70 万，较 5 月 2 日 50.57 万仍低约 25.5%。</p>
+          </div>
+          <div class="insight">
+            <b>需要复盘连续下滑原因</b>
+            <p>5 月 3 日至 5 月 5 日成交额从 38.87 万降到 25.08 万，需看排期、权益、SKU 和流量变化。</p>
+          </div>
+          <div class="insight">
+            <b>05-07 零成交需核验</b>
+            <p>如果 5 月 7 日有直播，需要确认是否为数据延迟、筛选条件错误或当天确无有效成交。</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>第二天优化建议</h2>
+      </div>
+      <div class="recommendations">
+        <article class="card rec">
+          <b>复制 5 月 6 日有效动作</b>
+          <p>复盘主推商品、权益表达、时段、主播话术和投流入口，把带来人数与订单同步增长的动作固定下来。</p>
+        </article>
+        <article class="card rec">
+          <b>对标 5 月 2 日峰值场次</b>
+          <p>拆解峰值当天的场次节奏、商品排序和活动机制，作为后续直播排期与讲解顺序的基准。</p>
+        </article>
+        <article class="card rec">
+          <b>强化高点击低成交商品</b>
+          <p>排查价格表达、赠品权益、讲解时长和链接挂载，优先修复有流量但成交弱的商品。</p>
+        </article>
+        <article class="card rec">
+          <b>做老客转化专项</b>
+          <p>加入老客专属权益、已购人群升级款推荐、配件或周边加购，提升复购与二次转化。</p>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      数据来源：京东直播后台交易分析。页面为静态日报看板，不包含账号、Cookie 或其他登录凭证。
+    </p>
+  </main>
+</body>
+</html>
